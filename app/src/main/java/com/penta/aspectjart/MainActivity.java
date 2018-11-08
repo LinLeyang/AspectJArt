@@ -6,17 +6,25 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.penta.aspectjart.okhttp.OkHttpUtils;
-import com.penta.aspectjart.okhttp.callback.Callback;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.penta.library.LogAopAgent;
 import com.penta.library.annotation.ApjLog;
 
+import java.io.IOException;
+import java.util.List;
+
 import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button button1;
     Button button2;
+    String filedTest = "123ddd";
 
     @ApjLog
     @Override
@@ -34,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button1:
-                button1Click();
+                button1Click(25);
                 break;
             case R.id.button2:
                 button2Click();
@@ -46,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @ApjLog
-    private void button1Click() {
+    private void button1Click(int position) {
         Toast.makeText(this, "button1", Toast.LENGTH_SHORT).show();
     }
 
@@ -56,19 +64,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void getData() {
-        OkHttpUtils.get().url("http://rap2api.taobao.org/app/mock/7065/logData").build().execute(new Callback() {
+        OkHttpClient mOkHttpClient = new OkHttpClient();
+        final Request request = new Request.Builder()
+                .url("http://rap2api.taobao.org/app/mock/7065/logData")
+                .build();
+        Call call = mOkHttpClient.newCall(request);
+        call.enqueue(new Callback() {
             @Override
-            public Object parseNetworkResponse(Response response, int id) throws Exception {
-                return null;
+            public void onFailure(Call call, IOException e) {
+
             }
 
             @Override
-            public void onError(Call call, Exception e, int id) {
-            }
+            public void onResponse(Call call, Response response) throws IOException {
+                String htmlStr = response.body().string();
 
-            @Override
-            public void onResponse(Object response, int id) {
-                onShow();
+                JSONObject jsonObject = JSON.parseObject(htmlStr);
+
+                List<LogModel> logModelList = JSON.parseArray(jsonObject.getString("logs"), LogModel.class);
+                LogAopAgent.ins().addLogs(logModelList);
             }
         });
     }

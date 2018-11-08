@@ -31,15 +31,11 @@ public class LogAopAgent {
         this.logAopProtocol = logAopProtocol;
     }
 
-    public void removeLogByContext(String context) {
-        LogStorage.removeLogByContext(context);
+    public void addLogs(List<? extends LogModelProtocol> logBeans) {
+        LogStorage.addLogs(logBeans);
     }
 
-    public void addLogs(String context, List<? extends LogModelProtocol> logBeans) {
-        LogStorage.addLogs(context, logBeans);
-    }
-
-    public HashMap<String, String> getLogMap() {
+    public HashMap<String, LogModelProtocol> getLogMap() {
         return LogStorage.logMap;
     }
 
