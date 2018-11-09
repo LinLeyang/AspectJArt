@@ -1,4 +1,4 @@
-package com.penta.aspectjart;
+package com.penta.aspectjart.logmodel;
 
 import com.penta.library.LogModelProtocol;
 

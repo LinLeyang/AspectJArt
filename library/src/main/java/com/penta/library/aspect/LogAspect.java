@@ -67,13 +67,14 @@ public class LogAspect {
             }
 
             Object o = joinPoint.getThis();
-            for (LogAttrModelProtocol attr : attributes) {
-                String value = ReflectUtil.getFiled(o, attr.getPath());
-                hashMap.put(attr.getKey(), value);
-            }
+            if (null != attributes && attributes.size() > 0)
+                for (LogAttrModelProtocol attr : attributes) {
+                    String value = ReflectUtil.getFiled(o, attr.getPath());
+                    hashMap.put(attr.getKey(), value);
+                }
 
             Object[] args = joinPoint.getArgs();
-            if (null != args && args.length > 0) {
+            if (null != args && args.length > 0 && null != parameters && parameters.size() > 0) {
                 for (LogParaModelProtocol param : parameters) {
                     if (param.getPosition() < args.length) {
                         String value = ReflectUtil.getFiled(args[param.getPosition()], param.getPath());

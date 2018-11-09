@@ -1,6 +1,7 @@
 package com.penta.library;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class ReflectUtil {
         }
 
         try {
+            Log.d("error", names.toString());
             Class clazz = object.getClass();
             Field field = clazz.getDeclaredField(names.get(0));
             names.remove(0);

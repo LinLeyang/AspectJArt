@@ -4,15 +4,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.penta.library.LogAopAgent;
+import com.penta.aspectjart.business.DetailBean;
 import com.penta.library.annotation.ApjLog;
 
 import java.io.IOException;
-import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -20,13 +19,16 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class DetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button button1;
     Button button2;
-    String filedTest = "123ddd";
+    DetailBean detailBean;
 
-    @ApjLog
+    TextView tvTitle;
+    TextView tvId;
+    TextView tvContent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +37,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button2 = findViewById(R.id.button2);
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
+
+        tvTitle = findViewById(R.id.tv_title);
+        tvId = findViewById(R.id.tv_id);
+        tvContent = findViewById(R.id.tv_content);
+
         getData();
     }
 
@@ -50,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 break;
         }
-
     }
 
     @ApjLog
@@ -66,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void getData() {
         OkHttpClient mOkHttpClient = new OkHttpClient();
         final Request request = new Request.Builder()
-                .url("http://rap2api.taobao.org/app/mock/7065/logData")
+                .url("http://rap2api.taobao.org/app/mock/7065/detailData")
                 .build();
         Call call = mOkHttpClient.newCall(request);
         call.enqueue(new Callback() {
@@ -78,18 +84,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String htmlStr = response.body().string();
+                detailBean = JSON.parseObject(htmlStr, DetailBean.class);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        bindDataToView();
+                    }
+                });
 
-                JSONObject jsonObject = JSON.parseObject(htmlStr);
-
-                List<LogModel> logModelList = JSON.parseArray(jsonObject.getString("logs"), LogModel.class);
-                LogAopAgent.ins().addLogs(logModelList);
             }
         });
     }
 
     @ApjLog
-    private void onShow() {
+    private void bindDataToView() {
+        tvTitle.setText(detailBean.getTitle());
+        tvId.setText(detailBean.getId());
+        tvContent.setText(detailBean.getContent());
     }
-
 
 }

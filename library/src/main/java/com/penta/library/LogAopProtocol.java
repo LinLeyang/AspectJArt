@@ -12,6 +12,6 @@ public interface LogAopProtocol {
 
     void onBefore(ProceedingJoinPoint joinPoint);
 
-    void onAfter(String Method, Map<String, String> paramsMap);
+    void onAfter(String Method, Map<String,String> paramsMap);
 
 }
