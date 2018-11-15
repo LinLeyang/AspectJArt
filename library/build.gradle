@@ -27,6 +27,7 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:26.1.0'
     compile project(path: ':annotation')
 }
+
 buildscript {
     repositories {
         google()
@@ -38,15 +39,19 @@ buildscript {
     }
 }
 
-
-
 // then apply the plugin
 apply plugin: 'net.anshulverma.gradle.fileupload'
-
-// then specify properties for file upload
-fileupload {
-    url = 'http://upload.file.com/destination'
-    file = "log.txt"
-    params.'type' = 'new'
+gradle.taskGraph.beforeTask { Task task ->
+    if ("app".equals(task.project.name) && (task.name).startsWith("assemble")) {
+        println "fileupload model start"
+        fileupload {
+            url = 'http://upload.file.com/destination'
+            file = "log.txt"
+            params.'type' = 'new'
+        }
+        println "fileupload model end"
+    }
 }
+// then specify properties for file upload
+
 println "library model end"

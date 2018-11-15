@@ -57,8 +57,3 @@ task hello {
 println "app model end"
 
 
-gradle.taskGraph.beforeTask { Task task ->
-    if ("app".equals(task.project.name) && (task.name).startsWith("assemble")) {
-        println 'app assemble 111111'
-    }
-}
