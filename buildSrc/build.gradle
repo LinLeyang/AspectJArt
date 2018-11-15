@@ -1,3 +1,4 @@
+println "buildSrc model start"
 apply plugin: 'groovy'
 
 repositories {
@@ -12,3 +13,4 @@ dependencies {
     compile 'com.android.tools.build:gradle:3.0.1'
     compile 'org.aspectj:aspectjtools:1.9.1'
 }
+println "buildSrc model end"

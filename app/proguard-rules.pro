@@ -21,15 +21,23 @@
 #-renamesourcefileattribute SourceFile
 
 #-keep class org.aspectj.** {*;}
--keep @interface com.penta.aspectjart.annotation.DebugTrace
 
--keep @com.penta.aspectjart.annotation.DebugTrace class *
--keepclassmembers class * {
-    @com.penta.aspectjart.annotation.DebugTrace *;
-}
 #-keep class com.penta.aspectjart.aspect.** {*;}
 #-keep class com.penta.aspectjart.internal.** {*;}
 
 #-keep public class * extends android.support.v4.**
 #-keep public class * extends android.support.v7.**
 #-keep public class * extends android.support.annotation.**
+
+-dontwarn com.squareup.okhttp3.**
+
+-keep class com.squareup.okhttp3.** { *;}
+
+-dontwarn okio.**
+-dontwarn okhttp3.**
+
+-keep @interface com.penta.nnotation.ApjLog
+-keep @com.penta.annotation.ApjLog; class *
+-keepclassmembers class * {
+    @com.penta.annotation.ApjLog; *;
+}

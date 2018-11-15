@@ -8,6 +8,7 @@ package com.penta.library.aspect;
 
 import android.util.Log;
 
+import com.penta.annotation.ApjLog;
 import com.penta.library.LogAopAgent;
 import com.penta.library.LogAttrModelProtocol;
 import com.penta.library.LogModelProtocol;
@@ -29,11 +30,9 @@ import java.util.List;
 @Aspect
 public class LogAspect {
 
-    private static final String POINTCUT_METHOD =
-            "execution(@com.penta.library.annotation.ApjLog * *(..))";
+    private static final String POINTCUT_METHOD = "execution(@com.penta.annotation.ApjLog * *(..))";
 
-    private static final String POINTCUT_CONSTRUCTOR =
-            "execution(@com.penta.library.annotation.ApjLog *.new(..))";
+    private static final String POINTCUT_CONSTRUCTOR = "execution(@com.penta.annotation.ApjLog *.new(..))";
 
     @Pointcut(POINTCUT_METHOD)
     public void methodAnnotatedWithDebugTrace() {

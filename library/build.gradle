@@ -1,3 +1,4 @@
+println "library model start"
 apply plugin: 'com.android.library'
 apply plugin: 'pentaAsj'
 android {
@@ -22,6 +23,30 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
+    compile project(path: ':annotation')
 }
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.aspectj:aspectjtools:1.9.1'
+        classpath 'net.anshulverma.gradle:gradle-fileupload-plugin:1.0.4'
+    }
+}
+
+
+
+// then apply the plugin
+apply plugin: 'net.anshulverma.gradle.fileupload'
+
+// then specify properties for file upload
+fileupload {
+    url = 'http://upload.file.com/destination'
+    file = "log.txt"
+    params.'type' = 'new'
+}
+println "library model end"

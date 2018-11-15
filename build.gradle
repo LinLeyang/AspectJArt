@@ -1,5 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
+println "project start"
 buildscript {
     repositories {
         google()
@@ -7,7 +7,6 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
-        classpath 'org.aspectj:aspectjtools:1.9.1'
     }
 
 }
@@ -20,5 +19,8 @@ allprojects {
 }
 
 task clean(type: Delete) {
+    println "clean end"
     delete rootProject.buildDir
 }
+
+println "project end"

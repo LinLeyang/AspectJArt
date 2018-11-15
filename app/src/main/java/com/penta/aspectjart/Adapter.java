@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.penta.aspectjart.business.DetailBean;
-import com.penta.library.annotation.ApjLog;
+import com.penta.annotation.ApjLog;
 
 import java.util.List;
 
@@ -73,7 +73,7 @@ public class Adapter extends BaseAdapter {
         return convertView;
     }
 
-    @ApjLog
+    @ApjLog(description = "列表页Item点击")
     public void onItemClick(int position, DetailBean detailBean) {
         context.startActivity(new Intent(context, DetailActivity.class));
     }

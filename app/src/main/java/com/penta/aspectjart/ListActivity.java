@@ -1,14 +1,13 @@
 package com.penta.aspectjart;
 
 import android.os.Bundle;
-import android.support.annotation.Keep;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
 import com.alibaba.fastjson.JSON;
 import com.penta.aspectjart.business.DetailBean;
 import com.penta.aspectjart.business.ListResponse;
-import com.penta.library.annotation.ApjLog;
+import com.penta.annotation.ApjLog;
 
 import java.io.IOException;
 import java.util.ArrayList;

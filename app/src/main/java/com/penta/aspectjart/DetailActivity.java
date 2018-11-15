@@ -8,8 +8,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.penta.annotation.ApjLog;
 import com.penta.aspectjart.business.DetailBean;
-import com.penta.library.annotation.ApjLog;
 
 import java.io.IOException;
 
