@@ -1,6 +1,9 @@
 println "library model start"
 apply plugin: 'com.android.library'
 apply plugin: 'pentaAsj'
+
+
+
 android {
     compileSdkVersion 26
 
@@ -35,23 +38,20 @@ buildscript {
     }
     dependencies {
         classpath 'org.aspectj:aspectjtools:1.9.1'
-        classpath 'net.anshulverma.gradle:gradle-fileupload-plugin:1.0.4'
     }
 }
 
+
+
+println "fileupload model start"
+apply plugin: 'pentaFileupload'
 // then apply the plugin
-apply plugin: 'net.anshulverma.gradle.fileupload'
-gradle.taskGraph.beforeTask { Task task ->
-    if ("app".equals(task.project.name) && (task.name).startsWith("assemble")) {
-        println "fileupload model start"
-        fileupload {
-            url = 'http://upload.file.com/destination'
-            file = "log.txt"
-            params.'type' = 'new'
-        }
-        println "fileupload model end"
-    }
+fileupload {
+    url = 'http://10.252.177.108:8080/log/mapping'
+    logFile = "log.txt"
+    mappingFile = "app/build/outputs/mapping/release/mapping.txt"
 }
+println "fileupload model end"
 // then specify properties for file upload
 
 println "library model end"

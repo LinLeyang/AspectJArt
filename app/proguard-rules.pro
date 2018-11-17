@@ -37,7 +37,7 @@
 -dontwarn okhttp3.**
 
 -keep @interface com.penta.nnotation.ApjLog
--keep @com.penta.annotation.ApjLog; class *
+-keep @com.penta.annotation.ApjLog class *
 -keepclassmembers class * {
-    @com.penta.annotation.ApjLog; *;
+    @com.penta.annotation.ApjLog *;
 }

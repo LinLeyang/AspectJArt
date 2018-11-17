@@ -1,6 +1,6 @@
 println "buildSrc model start"
 apply plugin: 'groovy'
-
+apply plugin: 'idea'
 repositories {
     google()
     jcenter()
@@ -12,5 +12,9 @@ dependencies {
     compile 'org.aspectj:aspectjrt:1.9.1'
     compile 'com.android.tools.build:gradle:3.0.1'
     compile 'org.aspectj:aspectjtools:1.9.1'
+    compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.2'
+    compile 'org.apache.tika:tika-core:1.4'
+    compile 'org.apache.httpcomponents:httpmime:4.5'
+
 }
 println "buildSrc model end"
